@@ -1,0 +1,29 @@
+MODULE main
+VAR
+x : grid;
+LTLSPEC ! (( F (x.state = 87) ))
+MODULE grid
+VAR
+state : {66, 67, 68, 69, 76, 77, 78, 79, 86, 87, 88, 89, 96, 97, 98, 99} ;
+ASSIGN
+init(state) := 78;
+next(state) :=
+case
+state = 66 : {67, 76};
+state = 67 : {66, 68};
+state = 68 : {67, 69, 78};
+state = 69 : {68, 79};
+state = 76 : {66};
+state = 77 : {67, 76, 78, 87};
+state = 78 : {68, 79};
+state = 79 : {69, 78, 89};
+state = 86 : {76, 87, 96};
+state = 87 : {97};
+state = 88 : {78, 87, 89, 98};
+state = 89 : {79, 99};
+state = 96 : {97};
+state = 97 : {87, 96, 98};
+state = 98 : {97, 99};
+state = 99 : {89, 98};
+TRUE : state;
+esac;

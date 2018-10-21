@@ -1,0 +1,25 @@
+MODULE main
+VAR
+  cPath: 0..99;
+
+DEFINE
+  y:=cPath / 10 + 1;
+  x:=cPath mod 10 + 1;
+
+ASSIGN
+  init(cPath):=87;
+
+  next(cPath):=
+    case
+      x>1&x<10&y>1&y<10:{cPath+1,cPath+(-1),cPath+10,cPath+(-10)};
+      x=1&y>1&y<10:{cPath+1,cPath+10,cPath+(-10)};
+      x=10&y>1&y<10:{cPath+(-1),cPath+10,cPath+(-10)};
+      x>1&x<10&y=1:{cPath+1,cPath+(-1),cPath+10};
+      x>1&x<10&y=10:{cPath+1,cPath+(-1),cPath+(-10)};
+      x=1&y=1:{cPath+1,cPath+10};
+      x=1&y=10:{cPath+1,cPath - 10};
+      x=10&y=1:{cPath - 1,cPath+10};
+      x=10&y=10:{cPath - 1,cPath - 10};
+    esac;
+
+LTLSPEC !(G!(cPath=35)& G!(cPath=77)& G!(cPath=11)& G !(cPath=22)& G !(cPath=22)& G !(cPath=23)& G !(cPath=13)& G !(cPath=13)& G !(cPath=13)& G !(cPath=13)& G !(cPath=24)& G !(cPath=24)& G !(cPath=24)& G !(cPath=56)& G !(cPath=57)& G !(cPath=58)& G !(cPath=56)& G !(cPath=57)& G !(cPath=56)& G !(cPath=56)& G !(cPath=56)& G !(cPath=56)& G !(cPath=57)& G !(cPath=56)& G !(cPath=57)& G !(cPath=58))
